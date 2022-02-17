@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Filtering {
+public class FilterSample {
 
     @Test
     void filter() throws IOException {
@@ -18,8 +18,8 @@ public class Filtering {
         // Predicate<Car> pricePredicate = car -> car.getPrice() < 15_000.00;
         // Predicate<Car> colorPredicate = car -> car.getColor().equals("Black");
         List<Car> carsLessThan15kAndBlack = cars.stream()
-                .filter(car -> car.getPrice() < 15_000.00)
-                .filter(car -> car.getColor().equals("Black"))
+                .filter(c -> c.getPrice() < 15_000.00)
+                .filter(c -> c.getColor().equals("Black"))
                 .collect(Collectors.toList());
 
         // exercise(act)
