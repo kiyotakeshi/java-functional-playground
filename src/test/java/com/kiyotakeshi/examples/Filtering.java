@@ -1,12 +1,11 @@
 package com.kiyotakeshi.examples;
 
-import com.kiyotakeshi.examples.beans.Car;
-import com.kiyotakeshi.examples.mockdata.SampleData;
+import com.kiyotakeshi.beans.Car;
+import com.kiyotakeshi.mock.SampleData;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Filtering {

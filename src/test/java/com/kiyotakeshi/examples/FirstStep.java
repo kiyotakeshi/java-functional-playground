@@ -1,7 +1,7 @@
 package com.kiyotakeshi.examples;
 
-import com.kiyotakeshi.examples.beans.Person;
-import com.kiyotakeshi.examples.mockdata.SampleData;
+import com.kiyotakeshi.beans.Person;
+import com.kiyotakeshi.mock.SampleData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

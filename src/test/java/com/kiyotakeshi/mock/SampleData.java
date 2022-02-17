@@ -1,11 +1,11 @@
-package com.kiyotakeshi.examples.mockdata;
+package com.kiyotakeshi.mock;
 
 
 import com.google.common.io.Resources;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.kiyotakeshi.examples.beans.Car;
-import com.kiyotakeshi.examples.beans.Person;
+import com.kiyotakeshi.beans.Car;
+import com.kiyotakeshi.beans.Person;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;

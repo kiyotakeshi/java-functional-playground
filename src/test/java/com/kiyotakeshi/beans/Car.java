@@ -1,4 +1,4 @@
-package com.kiyotakeshi.examples.beans;
+package com.kiyotakeshi.beans;
 
 import lombok.AccessLevel;
 import lombok.Data;
