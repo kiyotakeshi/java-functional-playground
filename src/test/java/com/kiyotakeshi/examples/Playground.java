@@ -114,6 +114,11 @@ public class Playground {
 //        System.out.println(nameLengthMap);
 //        Map<Integer, String> collect = list.stream()
 //                .collect(Collectors.toMap(String::length, e -> e));
+
+//        Set<Integer> length = list.stream()
+//                .mapToInt(String::length)
+//                .boxed()
+//                .collect(Collectors.toSet());
     }
 
     @Test
