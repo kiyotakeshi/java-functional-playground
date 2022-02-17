@@ -34,7 +34,11 @@ public class Playground {
         groups.add(group2);
     }
 
+    // @see https://speakerdeck.com/shintanimoto/stream-api-ru-men-number-jjug-number-javajo
     // Stream API は How(個別の処理)ではなく What(処理の目的)を列挙するコード
+    // stream() で stream を作り
+    // filter,map,limit,distinct,sorted などで変換や絞り込みなどの「中間操作」を行い
+    // collect,forEach,max,min などの「終端操作」で結果として何かしらの形に集約して取り出す(出力する、変数に代入するなど)
     @Test
     void filter() {
         students.stream() // stream を作成
@@ -54,7 +58,15 @@ public class Playground {
         students.stream()
                 // .sorted((s1, s2) -> Integer.compare(s1.getScore(), s2.getScore()))
                 .sorted(Comparator.comparingInt(Student::getScore).reversed())
-                .forEach(System.out::println);
+                .forEach(System.out::println); // java/util/stream/Stream.java
+    }
+
+    @Test
+    void max() {
+        Optional<Student> maxScoreStudent = students.stream()
+                .max(Comparator.comparingInt(Student::getScore));
+
+        maxScoreStudent.ifPresent(System.out::println);
     }
 
     @Test
@@ -67,9 +79,10 @@ public class Playground {
         // integerStream.forEach(System.out::println);
         students.stream()
                 // .map(s -> s.getScore())
+                // メソッド呼び出し1つだけならメソッド参照が使える
                 .map(Student::getScore)
                 .collect(Collectors.toList())
-                .forEach(System.out::println);
+                .forEach(System.out::println); // java/lang/Iterable.java
     }
 
     @Test
