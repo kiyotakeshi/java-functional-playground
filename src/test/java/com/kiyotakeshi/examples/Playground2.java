@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Playground2 {
 
@@ -59,7 +64,7 @@ public class Playground2 {
     void reduce2() {
         System.out.println(
                 numbers.stream()
-                        .map(x -> x * x)
+                        .map(x -> x * x) // return Stream<R>
                         .reduce(0, Integer::sum)
         );
     }
@@ -68,8 +73,8 @@ public class Playground2 {
     void reduce3() {
         System.out.println(
                 numbers.stream()
-                        .filter(x -> x % 2 == 0)
-                        .reduce(0, Integer::sum)
+                        .filter(x -> x % 2 == 0) // return Stream<T>
+                        .reduce(0, Integer::sum) // return T(not Stream, generics for specific type)
         );
     }
 
@@ -77,8 +82,8 @@ public class Playground2 {
     void distinctAndSorted() {
         List<Integer> numbers2 = List.of(13, 4, 4, 7, 23, 1, 8, 4, 5, 7, 23);
         numbers2.stream()
-                .distinct()
-                .sorted()
+                .distinct() // return Stream<T>
+                .sorted() // return Stream<T>
                 .forEach(System.out::println);
     }
 
@@ -87,8 +92,78 @@ public class Playground2 {
         course.stream()
                 // .sorted(Comparator.naturalOrder())
                 // .sorted(Comparator.reverseOrder())
-                .sorted(Comparator.comparing(c -> c.length()))
+                // .sorted(Comparator.comparing(c -> c.length()))
+                .sorted(Comparator.comparing(String::length))
                 // .sorted()
                 .forEach(System.out::println);
+        // .collect(Collectors.toList()); // return R(not Stream, generics for specific type)
+    }
+
+    @Test
+    void streamInside() {
+        /**
+         @FunctionalInterface public interface Predicate<T> {
+
+         @FunctionalInterface public interface Function<T, R> {
+
+         @FunctionalInterface public interface Consumer<T> {
+
+         > Conceptually, a functional interface has exactly one abstract method.
+         public @interface FunctionalInterface {}
+
+         @see https://speakerdeck.com/shintanimoto/stream-api-ru-men-number-jjug-number-javajo?slide=37
+         Stream 内の filter, map, forEach などが引数で受け付けるものは FunctionalInterface(関数型インターフェース)
+         FunctionalInterface は1つしか抽象メソッドを持たないもので、lambda 内に直接記述することができる
+         */
+        Predicate<Integer> isEvenPredicate = n -> n % 2 == 0;
+
+        Predicate<Integer> isEvenPredicate2 = new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer n) {
+                return n % 2 == 0;
+            }
+        };
+
+        Function<Integer, Integer> squareFunction = n -> n * n;
+        Function<Integer, Integer> squareFunction2 = new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer n) {
+                return n * n;
+            }
+        };
+
+        Consumer<Integer> println = System.out::println;
+        Consumer<Integer> println2 = new Consumer<Integer>() {
+            @Override
+            public void accept(Integer n) {
+                System.out.println(n);
+            }
+        };
+
+        numbers.stream()
+                .filter(isEvenPredicate)
+                // .filter(isEvenPredicate2)
+                .map(squareFunction)
+                // .map(squareFunction2)
+                .forEach(println);
+        // .forEach(println2);
+    }
+
+    @Test
+    void steamInside2() {
+
+        BinaryOperator<Integer> getSum = new BinaryOperator<>() {
+            @Override
+            public Integer apply(Integer arg1, Integer arg2) {
+                return arg1 + arg2;
+            }
+        };
+
+        System.out.println(
+                numbers.stream()
+                        // .reduce(0, (x,y) -> x + y)
+                        // .reduce(0, Integer::sum)
+                        .reduce(0, getSum)
+        );
     }
 }
