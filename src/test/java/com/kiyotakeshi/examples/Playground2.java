@@ -2,6 +2,7 @@ package com.kiyotakeshi.examples;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Playground2 {
@@ -70,5 +71,24 @@ public class Playground2 {
                         .filter(x -> x % 2 == 0)
                         .reduce(0, Integer::sum)
         );
+    }
+
+    @Test
+    void distinctAndSorted() {
+        List<Integer> numbers2 = List.of(13, 4, 4, 7, 23, 1, 8, 4, 5, 7, 23);
+        numbers2.stream()
+                .distinct()
+                .sorted()
+                .forEach(System.out::println);
+    }
+
+    @Test
+    void sorted() {
+        course.stream()
+                // .sorted(Comparator.naturalOrder())
+                // .sorted(Comparator.reverseOrder())
+                .sorted(Comparator.comparing(c -> c.length()))
+                // .sorted()
+                .forEach(System.out::println);
     }
 }
