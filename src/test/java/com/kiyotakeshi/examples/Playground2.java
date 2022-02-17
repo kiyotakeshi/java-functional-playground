@@ -166,4 +166,44 @@ public class Playground2 {
                         .reduce(0, getSum)
         );
     }
+
+    private void filterAndPrint(List<Integer> numbers, Predicate<Integer> predicate) {
+        numbers.stream()
+                .filter(predicate)
+                .forEach(System.out::println);
+    }
+
+    @Test
+    void predicateArgumentMethod() {
+//        Predicate<Integer> evenPredicate = n -> n % 2 == 0;
+//        Predicate<Integer> oddPredicate = n -> n % 2 != 0;
+
+//        numbers.stream()
+//                // .filter(evenPredicate)
+//                .filter(oddPredicate)
+//                .forEach(System.out::println);
+
+        filterAndPrint(numbers, n -> n % 2 == 0);
+        filterAndPrint(numbers, n -> n % 5 == 0);
+    }
+
+    private List<Integer> mapAndCreateNewList(List<Integer> numbers, Function<Integer, Integer> mappingFunction) {
+        return numbers.stream()
+                .map(mappingFunction)
+                .collect(Collectors.toList());
+    }
+
+    @Test
+    void predicateArgumentMethod2() {
+
+//        Function<Integer, Integer> squareFunction = x -> x * x;
+//        List<Integer> collect = numbers.stream()
+//                .map(squareFunction)
+//                .collect(Collectors.toList());
+
+        List<Integer> squareNumbers = mapAndCreateNewList(numbers, x -> x * x);
+        List<Integer> doubledNumbers = mapAndCreateNewList(numbers, x -> x + x);
+        System.out.println(squareNumbers);
+        System.out.println(doubledNumbers);
+    }
 }
